@@ -47,7 +47,7 @@ You'll find all the classwork for the initial Typescript part of the program her
 - 🚧 [`nft_metadata`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_metadata.ts): Create an NFT metadata.
 - 🚧 [`nft_mint`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_mint.ts): Mint an NFT.
 - ✅ [`spl_init`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_init.ts): Initialize an SPL token.
-- 🚧 [`spl_metadata`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_metadata.ts): Create an SPL metadata.
+- ✅ [`spl_metadata`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_metadata.ts): Create an SPL metadata.
 - ✅ [`spl_mint`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_mint.ts): Mint an SPL token.
 - ✅ [`spl_transfer`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_transfer.ts): Transfer an SPL token.
 - 🚧 [`vault_close`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/vault_close.ts): Close a vault.
@@ -64,3 +64,4 @@ You'll find all the classwork for the initial Typescript part of the program her
 - [`spl_init`](https://solana.fm/tx/5m1J3n9f1ZBMQDfMp7kEganrhNiay7pnDSdN2J7JSRJ3pUNTW9fFVyxukSn9Cwi1SPg7wQkHLkGNPgSnbXWdpdyC?cluster=devnet-alpha)
 - [`spl_mint`](https://solana.fm/tx/41NZGsWVJYLEBXzPBLtFDZipiUdwGZrwfwTxKrECCbd1CrygwQ5Biizb7MfjtQ6uL77rcrwex8fPVNrgaX1jREXB?cluster=devnet-alpha)
 - [`spl_transfer`](https://solana.fm/tx/2KSjZCYbcngae4mEMAXfMQ2boiRbSFSPyYxkpxxMz6EJZzM7HCZEHA1M3beUkd7Tb6sECgWnLxhNzEWt12WYjgRv?cluster=devnet-alpha)
+- [`spl_metadata`](https://solana.fm/tx/V9DabBRi1Aoqa78fYCgmCUXYEByxN7GUYtJfrgXMutj3QvwEkU74Yho32hheBYswVE6kkzftTNY1D9khypvSExe?cluster=devnet-alpha)
