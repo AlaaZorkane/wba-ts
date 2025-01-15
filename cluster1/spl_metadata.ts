@@ -1,49 +1,67 @@
-import wallet from "../dev-wallet.json"
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults"
-import { 
-    createMetadataAccountV3, 
-    CreateMetadataAccountV3InstructionAccounts, 
-    CreateMetadataAccountV3InstructionArgs,
-    DataV2Args
+import wallet from "../wba-wallet.json";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import {
+  createMetadataAccountV3,
+  type CreateMetadataAccountV3InstructionAccounts,
+  type CreateMetadataAccountV3InstructionArgs,
+  type DataV2Args,
 } from "@metaplex-foundation/mpl-token-metadata";
-import { createSignerFromKeypair, signerIdentity, publicKey } from "@metaplex-foundation/umi";
-import { bs58 } from "@coral-xyz/anchor/dist/cjs/utils/bytes";
+import {
+  createSignerFromKeypair,
+  signerIdentity,
+  publicKey,
+} from "@metaplex-foundation/umi";
+import bs58 from "bs58";
 
 // Define our Mint address
-const mint = publicKey("<mint address>")
+const mint = publicKey("H5EZ71DGXL6NjG6LAinjze6aACQAK9j3Nbdo7r6j7HLr");
 
 // Create a UMI connection
-const umi = createUmi('https://api.devnet.solana.com');
+const umi = createUmi("https://api.devnet.solana.com");
 const keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
 const signer = createSignerFromKeypair(umi, keypair);
 umi.use(signerIdentity(createSignerFromKeypair(umi, keypair)));
 
 (async () => {
-    try {
-        // Start here
-        // let accounts: CreateMetadataAccountV3InstructionAccounts = {
-        //     ???
-        // }
+  try {
+    // Start here
+    const accounts: CreateMetadataAccountV3InstructionAccounts = {
+      mint: mint,
+      mintAuthority: signer,
+      payer: signer,
+      updateAuthority: signer,
+    };
 
-        // let data: DataV2Args = {
-        //     ???
-        // }
+    const data: DataV2Args = {
+      name: "WBA ALAA",
+      symbol: "aWBA",
+      uri: "https://github.com/alaazorkane/wba-ts",
+      sellerFeeBasisPoints: 0,
+      creators: [
+        {
+          address: keypair.publicKey,
+          share: 100,
+          verified: true,
+        },
+      ],
+      uses: null,
+      collection: null,
+    };
 
-        // let args: CreateMetadataAccountV3InstructionArgs = {
-        //     ???
-        // }
+    const args: CreateMetadataAccountV3InstructionArgs = {
+      isMutable: true,
+      data,
+      collectionDetails: null,
+    };
 
-        // let tx = createMetadataAccountV3(
-        //     umi,
-        //     {
-        //         ...accounts,
-        //         ...args
-        //     }
-        // )
+    const tx = createMetadataAccountV3(umi, {
+      ...accounts,
+      ...args,
+    });
 
-        // let result = await tx.sendAndConfirm(umi);
-        // console.log(bs58.encode(result.signature));
-    } catch(e) {
-        console.error(`Oops, something went wrong: ${e}`)
-    }
+    const result = await tx.sendAndConfirm(umi);
+    console.log(bs58.encode(result.signature));
+  } catch (e) {
+    console.error(`Oops, something went wrong: ${e}`);
+  }
 })();
