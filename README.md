@@ -43,9 +43,9 @@ You'll find all the classwork for the initial Typescript part of the program her
 
 ## Entries Progress
 
-- 🚧 [`nft_image`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_image.ts): Create an NFT image.
-- 🚧 [`nft_metadata`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_metadata.ts): Create an NFT metadata.
-- 🚧 [`nft_mint`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_mint.ts): Mint an NFT.
+- ✅ [`nft_image`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_image.ts): Create an NFT image.
+- ✅ [`nft_metadata`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_metadata.ts): Create an NFT metadata.
+- ✅ [`nft_mint`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/nft_mint.ts): Mint an NFT.
 - ✅ [`spl_init`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_init.ts): Initialize an SPL token.
 - ✅ [`spl_metadata`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_metadata.ts): Create an SPL metadata.
 - ✅ [`spl_mint`](https://github.com/alaazorkane/wba-ts/blob/main/cluster1/spl_mint.ts): Mint an SPL token.
@@ -65,3 +65,6 @@ You'll find all the classwork for the initial Typescript part of the program her
 - [`spl_mint`](https://solana.fm/tx/41NZGsWVJYLEBXzPBLtFDZipiUdwGZrwfwTxKrECCbd1CrygwQ5Biizb7MfjtQ6uL77rcrwex8fPVNrgaX1jREXB?cluster=devnet-alpha)
 - [`spl_transfer`](https://solana.fm/tx/2KSjZCYbcngae4mEMAXfMQ2boiRbSFSPyYxkpxxMz6EJZzM7HCZEHA1M3beUkd7Tb6sECgWnLxhNzEWt12WYjgRv?cluster=devnet-alpha)
 - [`spl_metadata`](https://solana.fm/tx/V9DabBRi1Aoqa78fYCgmCUXYEByxN7GUYtJfrgXMutj3QvwEkU74Yho32hheBYswVE6kkzftTNY1D9khypvSExe?cluster=devnet-alpha)
+- [`nft_image`](https://gateway.irys.xyz/EZN69HhW2F8DayG3mySDDWqwxerGCUHhDQAdCP1ud4av)
+- [`nft_metadata`](https://gateway.irys.xyz/BLMYNYxCfmbmEtM77Mvub35NeuN64DgDahYfXtz5YZvy)
+- [`nft_mint`](https://solana.fm/address/AZvjPkHwaKQZ7JyGaZZNytJtq3VJEMEkCBXwysFh2REi/transactions?cluster=devnet-alpha)

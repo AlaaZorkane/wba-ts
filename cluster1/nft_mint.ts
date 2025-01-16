@@ -26,11 +26,14 @@ const mint = generateSigner(umi);
 (async () => {
   const tx = createNft(umi, {
     mint,
-    name: "Stupid Cat",
+    name: "stoopid cat",
     sellerFeeBasisPoints: percentAmount(0),
-    uri: "https://github.com/alaazorkane/wba-ts",
+    uri: "https://devnet.irys.xyz/BLMYNYxCfmbmEtM77Mvub35NeuN64DgDahYfXtz5YZvy",
     authority: myKeypairSigner,
     updateAuthority: myKeypairSigner,
+    primarySaleHappened: true,
+    symbol: "stoopid",
+    isMutable: true,
   });
   const result = await tx.sendAndConfirm(umi);
   const signature = base58.encode(result.signature);

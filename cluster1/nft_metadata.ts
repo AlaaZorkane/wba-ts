@@ -19,19 +19,20 @@ umi.use(signerIdentity(signer));
 (async () => {
   try {
     const metadata: JsonMetadata = {
-      name: "STUPID CAT",
-      symbol: "STPDCAT",
-      description: "From a very smart cat, comes a very stupid cat.",
-      image: "?",
+      name: "stoopid cat",
+      symbol: "stoopid",
+      description: "From a very smart cat, comes a very stoopid cat.",
+      image:
+        "https://devnet.irys.xyz/EZN69HhW2F8DayG3mySDDWqwxerGCUHhDQAdCP1ud4av",
       attributes: [
         // biome-ignore lint/style/useNamingConvention: based on library
-        { trait_type: "stupidity", value: "very stupid" },
+        { trait_type: "stupidity", value: "very stoopid" },
       ],
       properties: {
         files: [
           {
             type: "image/png",
-            uri: "?",
+            uri: "https://devnet.irys.xyz/EZN69HhW2F8DayG3mySDDWqwxerGCUHhDQAdCP1ud4av",
           },
         ],
         creators: [

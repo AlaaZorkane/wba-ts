@@ -41,7 +41,6 @@
     "typescript": "^5.3.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "ts-node": "^10.9.1"
   }
 }
