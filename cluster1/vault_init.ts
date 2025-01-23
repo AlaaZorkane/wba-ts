@@ -2,20 +2,16 @@ import {
   Connection,
   Keypair,
   PublicKey,
+  SystemProgram,
   type Commitment,
 } from "@solana/web3.js";
-import {
-  Program,
-  Wallet,
-  AnchorProvider,
-  type Address,
-} from "@coral-xyz/anchor";
-import { type WbaVault, IDL } from "./programs/wba_vault";
+import { Program, Wallet, AnchorProvider } from "@coral-xyz/anchor-new";
+import type { Vault } from "./programs/idl/vault";
+import IDL from "./programs/idl/vault.json";
 import wallet from "../wba-wallet.json";
-import { SystemProgram } from "@solana/web3.js";
 
 // Import our keypair from the wallet file
-const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
+const owner = Keypair.fromSecretKey(new Uint8Array(wallet));
 
 // Commitment
 const commitment: Commitment = "confirmed";
@@ -24,31 +20,24 @@ const commitment: Commitment = "confirmed";
 const connection = new Connection("https://api.devnet.solana.com");
 
 // Create our anchor provider
-const provider = new AnchorProvider(connection, new Wallet(keypair), {
+const provider = new AnchorProvider(connection, new Wallet(owner), {
   commitment,
 });
 
-const PROGRAM_ID = "vLtGiWe6zK8rx3fuRXrm5er2EccAr4XpjssYNEJDLBH" as Address;
-
 // Create our program
-const program = new Program<WbaVault>(IDL, PROGRAM_ID, provider);
+const program = new Program<Vault>(IDL as Vault, provider);
 
-// Create a random keypair
-const vaultState = Keypair.generate();
-console.log(`Vault public key: ${vaultState.publicKey.toBase58()}`);
-
-// Create the PDA for our enrollment account
-// Seeds are "auth", vaultState
-const [vaultAuthPda] = PublicKey.findProgramAddressSync(
-  [Buffer.from("auth"), vaultState.publicKey.toBuffer()],
-  SystemProgram.programId,
+const [statePda] = PublicKey.findProgramAddressSync(
+  [Buffer.from("state"), owner.publicKey.toBytes()],
+  program.programId,
 );
 
+console.log(`Vault public key: ${statePda.toBase58()}`);
+
 // Create the vault key
-// Seeds are "vault", vaultAuth
 const [vaultPda] = PublicKey.findProgramAddressSync(
-  [Buffer.from("vault"), vaultAuthPda.toBuffer()],
-  program.programId,
+  [Buffer.from("vault"), statePda.toBuffer()],
+  SystemProgram.programId,
 );
 
 // Execute our enrollment transaction
@@ -56,13 +45,12 @@ const [vaultPda] = PublicKey.findProgramAddressSync(
   try {
     const sig = await program.methods
       .initialize()
-      .accounts({
-        owner: keypair.publicKey,
-        vaultState: vaultState.publicKey,
-        vaultAuth: vaultAuthPda,
+      .accountsPartial({
+        owner: owner.publicKey,
+        state: statePda,
         vault: vaultPda,
       })
-      .signers([keypair, vaultState])
+      .signers([owner])
       .rpc();
     console.log(
       `Init success! Check out your TX here:\n\nhttps://explorer.solana.com/tx/${sig}?cluster=devnet`,

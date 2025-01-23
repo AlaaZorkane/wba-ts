@@ -6,61 +6,52 @@ import {
   SystemProgram,
   type Commitment,
 } from "@solana/web3.js";
-import {
-  Program,
-  Wallet,
-  AnchorProvider,
-  type Address,
-  BN,
-} from "@coral-xyz/anchor";
-import { type WbaVault, IDL } from "./programs/wba_vault";
+import { Program, Wallet, AnchorProvider, BN } from "@coral-xyz/anchor-new";
+import type { Vault } from "./programs/idl/vault";
+import IDL from "./programs/idl/vault.json";
 import wallet from "../wba-wallet.json";
 
 // Import our keypair from the wallet file
-const keypair = Keypair.fromSecretKey(new Uint8Array(wallet));
+const owner = Keypair.fromSecretKey(new Uint8Array(wallet));
 
 // Commitment
-const commitment: Commitment = "finalized";
+const commitment: Commitment = "confirmed";
 
 // Create a devnet connection
 const connection = new Connection("https://api.devnet.solana.com");
 
 // Create our anchor provider
-const provider = new AnchorProvider(connection, new Wallet(keypair), {
+const provider = new AnchorProvider(connection, new Wallet(owner), {
   commitment,
 });
 
-const PROGRAM_ID = "vLtGiWe6zK8rx3fuRXrm5er2EccAr4XpjssYNEJDLBH" as Address;
-
 // Create our program
-const program = new Program<WbaVault>(IDL, PROGRAM_ID as Address, provider);
+const program = new Program<Vault>(IDL as Vault, provider);
 
-const vaultState = new PublicKey("<address>");
-
-// Create the PDA for our enrollment account
-const [vaultAuth] = PublicKey.findProgramAddressSync(
-  [Buffer.from("auth"), vaultState.toBuffer()],
-  SystemProgram.programId,
+const [statePda] = PublicKey.findProgramAddressSync(
+  [Buffer.from("state"), owner.publicKey.toBytes()],
+  program.programId,
 );
 
+console.log(`Vault public key: ${statePda.toBase58()}`);
+
 // Create the vault key
-const [vault] = PublicKey.findProgramAddressSync(
-  [Buffer.from("vault"), vaultAuth.toBuffer()],
-  program.programId,
+const [vaultPda] = PublicKey.findProgramAddressSync(
+  [Buffer.from("vault"), statePda.toBuffer()],
+  SystemProgram.programId,
 );
 
 // Execute our enrollment transaction
 (async () => {
   try {
     const signature = await program.methods
-      .deposit(new BN(LAMPORTS_PER_SOL))
-      .accounts({
-        owner: keypair.publicKey,
-        vault,
-        vaultState,
-        vaultAuth,
+      .deposit(new BN(LAMPORTS_PER_SOL / 2))
+      .accountsPartial({
+        owner: owner.publicKey,
+        state: statePda,
+        vault: vaultPda,
       })
-      .signers([keypair])
+      .signers([owner])
       .rpc();
     console.log(
       `Deposit success! Check out your TX here:\n\nhttps://explorer.solana.com/tx/${signature}?cluster=devnet`,
